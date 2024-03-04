@@ -31,7 +31,7 @@ max_date = df1["datetime"].max()
 
 with st.sidebar:
     # Add company logo
-    st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
+    st.image("logo.png")
     
     # Date range selection
     start_date, end_date = st.date_input(
