@@ -32,7 +32,7 @@ max_date = df1["datetime"].max()
 with st.sidebar:
     # Add company logo
     st.image("https://github.com/dicodingacademy/assets/raw/main/logo.png")
-
+    
     # Date range selection
     start_date, end_date = st.date_input(
         label='Date Range',
@@ -60,7 +60,7 @@ with col1:
   total_users_rain = round(weather.total_count.min(), 2)
   st.metric("Average Daily Bike Sharing Users on Rainy Weather", value=total_users_rain)
 
-with col2:
+with col2: 
   fig, ax = plt.subplots(figsize=(7, 3))
   sns.barplot(x='total_count', y='weather_condition', hue='weather_condition', data=weather, palette='viridis', dodge=False, ax=ax)
   ax.set_title('Average Daily Bike Sharing Users by Weather Condition')
@@ -116,3 +116,4 @@ with col2:
 with col1:
     total_users_max = round(count_by_day.total_count.max(), 2)
     st.metric("Maximum Total Users (Casual+Registered): ", value=total_users_max)
+
