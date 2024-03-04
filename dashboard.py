@@ -16,7 +16,7 @@ def create_count_by_day(df):
     return count_by_day
 
 # Load the dataset
-df1 = pd.read_csv("/content/all_data.csv")
+df1 = pd.read_csv("all_data.csv")
 
 # Sort and convert datetime columns
 df1.sort_values(by="datetime").reset_index()
