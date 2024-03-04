@@ -1,5 +1,5 @@
-!pip install matplotlib
-!pip install seaborn
+!pip instal matplotlib
+!pip instal seaborn
 
 import streamlit as st
 import pandas as pd
