@@ -48,6 +48,8 @@ weather = create_weather(main_df)
 season = create_season(main_df)
 count_by_day = create_count_by_day(main_df)
 
+st.header('Bike-Sharing Dashboard :sparkles:')
+
 # Barplot of Average Daily Bike Sharing Users by Weather Condition
 st.subheader("Barplot of Average Daily Bike Sharing Users by Weather Condition")
 
