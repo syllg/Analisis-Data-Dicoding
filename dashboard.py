@@ -1,19 +1,19 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def create_weather(df):
-  weather = df1.groupby('weather_condition')['total_count'].mean().reset_index().sort_values("total_count")
+  weather = df.groupby('weather_condition')['total_count'].mean().reset_index().sort_values("total_count")
   return weather
 
 def create_season(df):
-  season = df.groupby('season')['total_count'].mean()
+  season = df.groupby('season')['total_count'].mean().reset_index().sort_values("total_count")
   return season
 
 def create_count_by_day(df):
   count_by_day = df.groupby('datetime')[['total_count', 'casual', 'registered']].mean()
   return count_by_day
-
 
 
 df1 = pd.read_csv("/content/all_data.csv")
@@ -52,6 +52,12 @@ count_by_day = create_count_by_day(main_df)
 # Barplot Rata-Rata Total Pengguna Bike Sharing Harian berdasarkan Kondisi Cuaca
 st.subheader("Barplot Rata-Rata Total Pengguna Bike Sharing Harian berdasarkan Kondisi Cuaca")
 
+total_users=round(weather.total_count.max(),2)
+st.metric("Rata-Rata Total Pengguna Bike Sharing pada Cuaca Cerah (Clear)",value=total_users)
+
+total_users=round(weather.total_count.min(),2)
+st.metric("Rata-Rata Total Pengguna Bike Sharing pada Cuaca Hujan (Light_RainSnow)",value=total_users)  
+
 fig, ax = plt.subplots(figsize=(7, 3))
 sns.barplot(x='total_count', y='weather_condition', hue='weather_condition', data=weather, palette='viridis', dodge=False, ax=ax)
 ax.set_title('Rata - Rata Total Pengguna Bike Sharing Harian berdasarkan Kondisi Cuaca')
@@ -61,9 +67,16 @@ st.pyplot(fig)
 
 # Barplot Pengaruh Musim Terhadap Rata-Rata Jumlah Pengguna Bike-Sharing Harian
 st.subheader("Barplot Pengaruh Musim Terhadap Rata-Rata Jumlah Pengguna Bike-Sharing Harian")
+
+total_user=round(season.total_count.max(),2)
+st.metric("Rata-Rata Total Pengguna Bike Sharing pada Musim Salju (Winter)",value=total_user)
+
+total_user=round(season.total_count.min(),2)
+st.metric("Rata-Rata Total Pengguna Bike Sharing pada Cuaca Hujan (Light_RainSnow)",value=total_user)  
+
 names = ['Spring', 'Summer', 'Fall', 'Winter']
-fig, ax = plt.subplots()
-ax.bar(names, season)
+fig, ax = plt.subplots(figsize=(7,3))
+sns.barplot(x=names, y=season['total_count'], ax=ax)
 ax.set_xlabel('Musim')
 ax.set_ylabel('Rata-rata jumlah pengguna')
 ax.set_title('Pengaruh Musim Terhadap rata-rata jumlah Pengguna Bike-Sharing Harian')
@@ -71,6 +84,10 @@ st.pyplot(fig)
 
 # Line Plot Total Pengguna Bikes Sharing Harian
 st.subheader("Line Plot Total Pengguna Bikes Sharing Harian")
+
+total_use=round(count_by_day.total_count.max(),2)
+st.metric("Total Pengguna (Casual+Registered) Terbanyak: ",value=total_use)
+
 sns.set_style('whitegrid')
 fig, ax = plt.subplots(figsize=(10, 6))
 
@@ -81,11 +98,15 @@ ax.plot(count_by_day.index, count_by_day['registered'], label='Pengguna Register
 
 max_x = count_by_day['total_count'].idxmax()
 max_y = count_by_day['total_count'].max()
-ax.annotate(f'Max: ({max_x}, {max_y})', xy=(max_x, max_y), xytext=(max_x, max_y + 500), arrowprops=dict(facecolor='black', shrink=0.05))
+ax.annotate(f'Max: ({max_x})', xy=(max_x, max_y), xytext=(max_x, max_y + 500), arrowprops=dict(facecolor='black', shrink=0.05))
 
 ax.set_xlabel('Waktu')
 ax.set_ylabel('Total Pengguna')
 ax.set_title('Total Pengguna Bikes Sharing Harian')
+ax.legend()
+ax.grid(True)
+
+st.pyplot(fig)
 ax.legend()
 ax.grid(True)
 
