@@ -94,28 +94,28 @@ st.subheader("Line Plot of Total Daily Bike Sharing Users")
 
 col1, col2 = st.columns(2)
 
-with col1:
-  total_users_max = round(count_by_day.total_count.max(), 2)
-  st.metric("Maximum Total Users (Casual+Registered): ", value=total_users_max)
-
 with col2:
-  sns.set_style('whitegrid')
-  fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
-  # Assuming count_by_day has columns 'total_count', 'casual', and 'registered'
-  ax.plot(count_by_day.index, count_by_day['total_count'], label='Total Bike Sharing Users')
-  ax.plot(count_by_day.index, count_by_day['casual'], label='Casual Users')
-  ax.plot(count_by_day.index, count_by_day['registered'], label='Registered Users')
+    # Assuming count_by_day has columns 'total_count', 'casual', and 'registered'
+    ax.plot(count_by_day.index, count_by_day['total_count'], label='Total Bike Sharing Users')
+    ax.plot(count_by_day.index, count_by_day['casual'], label='Casual Users')
+    ax.plot(count_by_day.index, count_by_day['registered'], label='Registered Users')
 
-  max_x = count_by_day['total_count'].idxmax()
-  max_y = count_by_day['total_count'].max()
-  ax.annotate(f'Max: ({max_x})', xy=(max_x, max_y), xytext=(max_x, max_y + 500), arrowprops=dict(facecolor='black', shrink=0.05))
+    max_x = count_by_day['total_count'].idxmax()
+    max_y = count_by_day['total_count'].max()
+    ax.annotate(f'Max: ({max_x})', xy=(max_x, max_y), xytext=(max_x, max_y + 500), arrowprops=dict(facecolor='black', shrink=0.05))
 
-  ax.set_xlabel('Time')
-  ax.set_ylabel('Total Users')
-  ax.set_title('Total Daily Bike Sharing Users')
-  ax.legend()
-  ax.grid(True)
-st.pyplot(fig)
+    ax.set_xlabel('Time')
+    ax.set_ylabel('Total Users')
+    ax.set_title('Total Daily Bike Sharing Users')
+    ax.legend()
+    ax.grid(True)
+    st.pyplot(fig)
+
+with col1:
+    total_users_max = round(count_by_day.total_count.max(), 2)
+    st.metric("Maximum Total Users (Casual+Registered): ", value=total_users_max)
+
 
 
