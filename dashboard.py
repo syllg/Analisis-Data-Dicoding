@@ -117,5 +117,3 @@ with col1:
     total_users_max = round(count_by_day.total_count.max(), 2)
     st.metric("Maximum Total Users (Casual+Registered): ", value=total_users_max)
 
-
-
